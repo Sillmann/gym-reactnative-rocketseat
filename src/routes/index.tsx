@@ -13,6 +13,9 @@ export function Routes() {
   // const contextData = useContext(AuthContext);
   // console.log("Usuario Logado = >", user);
 
+  // const contextData = useContext(AuthContext);
+  // console.log("Usuario Logado = >", user);
+
   const theme = DefaultTheme;
   theme.colors.background = colors.gray[700];
 
