@@ -7,6 +7,7 @@ import { Center, ScrollView, VStack, Skeleton, Text, Heading, useToast } from 'n
 import { Alert, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+import { api } from '@services/api';
 
 const PHOTO_SIZE = 33;
 
@@ -44,12 +45,35 @@ export function Profile() {
         })
       }
 
+      const fileExtension = photoSelected.uri.split('.').pop();
+
+      const photoFile = {
+        name: `${user.name}.${fileExtension}`.toLowerCase,
+        uri: photoSelected.uri,
+        type: `${photoSelected.type}/${fileExtension}`
+      } as any;
+
+      const userPhotoUploadForm = new FormData();
+      userPhotoUploadForm.append('avatar', photoFile);
+
+      await api.patch('/users/avatar', userPhotoUploadForm, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+
+      toast.show({
+        title: 'Foto atualizada',
+        placement: 'top',
+        bgColor: 'green.500'
+      })
+
       // return Alert.alert("Essa imagem é muito grande. Escolha uma de até 5MB");
 
       // if (photoInfo.size && (photoInfo.size / 1024 / 1024) > 5) {
       //   return Alert.alert("Essa imagem é muito grande. Escolha uma de até 5MB");
       // }
-      setUserPhoto(photoSelected.assets[0].uri);
+      //setUserPhoto(photoSelected.assets[0].uri);
     }
 
 

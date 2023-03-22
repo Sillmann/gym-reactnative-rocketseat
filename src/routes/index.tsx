@@ -4,21 +4,22 @@ import { AuthRoutes } from "./auth.routes";
 import { AppRoutes } from "./app.routes";
 import { useAuth } from '@hooks/useAuth';
 import { useContext } from 'react';
-// import { useContext } from 'react';
+import { Loading } from '@components/Loading';
 
 export function Routes() {
 
   const { colors } = useTheme();
-  const { user } = useAuth();
-
-  // const contextData = useContext(AuthContext);
-  // console.log("Usuario Logado = >", user);
+  const { user, isLoadingUserStorageData } = useAuth();
 
   // const contextData = useContext(AuthContext);
   // console.log("Usuario Logado = >", user);
 
   const theme = DefaultTheme;
   theme.colors.background = colors.gray[700];
+
+  if (isLoadingUserStorageData) {
+    return <Loading />
+  }
 
   return (
     <Box flex={1} bg="gray.700">
