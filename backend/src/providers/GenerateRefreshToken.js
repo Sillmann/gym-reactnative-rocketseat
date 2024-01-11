@@ -1,21 +1,15 @@
 const knex = require("../database");
 const dayjs = require("dayjs");
-const uuid = require('uuid')
 
 class GenerateRefreshToken {
-  async execute(user_id) {
-    await knex("refresh_token").where({ user_id }).delete();
+  async execute(userId, newToken) {
+    const expires_in = dayjs().add(15, "second").unix();
 
-    const expires_in = dayjs().add(15, "m").unix();
-    const refresh_token = uuid.v4();
-
-    await knex("refresh_token").insert({
-      user_id,
+    await knex("users_tokens").insert({
+      user_id: userId,
       expires_in,
-      refresh_token
+      token: newToken
     });
-
-    return refresh_token;
   }
 }
 

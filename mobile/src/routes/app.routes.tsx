@@ -8,8 +8,8 @@ import ProfileSvg from '@assets/profile.svg';
 
 import { Home } from '@screens/Home';
 import { Exercise } from '@screens/Exercise';
-import { Profile } from '@screens/Profile';
 import { History } from '@screens/History';
+import { Profile } from '@screens/Profile';
 
 type AppRoutes = {
   home: undefined;
@@ -28,9 +28,8 @@ export function AppRoutes() {
 
   const iconSize = sizes[6];
 
-
   return (
-    <Navigator screenOptions={{
+    <Navigator screenOptions={{ 
       headerShown: false,
       tabBarShowLabel: false,
       tabBarActiveTintColor: colors.green[500],
@@ -38,51 +37,46 @@ export function AppRoutes() {
       tabBarStyle: {
         backgroundColor: colors.gray[600],
         borderTopWidth: 0,
-        height: Platform.OS === 'android' ? 'auto' : 96,
+        height: Platform.OS === "android" ? 'auto' : 96,
         paddingBottom: sizes[10],
         paddingTop: sizes[6]
       }
     }}>
-      
       <Screen 
-        name="home"
+        name='home'
         component={Home}
         options={{
-          tabBarIcon: ({ color })=>(
-            <HomeSvg fill={color} width={iconSize} height={iconSize}/>
+          tabBarIcon: ({ color,  }) => (
+            <HomeSvg fill={color} width={iconSize} height={iconSize} />
           )
         }}
       />
 
       <Screen 
-        name="history"
+        name='history'
         component={History}
         options={{
-          tabBarIcon: ({ color })=>(
-            <HistorySvg fill={color} width={iconSize} height={iconSize}/>
+          tabBarIcon: ({ color }) => (
+            <HistorySvg fill={color} width={iconSize} height={iconSize} />
           )
-        }}        
+        }}
       />
 
       <Screen 
-        name="profile"
+        name='profile'
         component={Profile}
         options={{
-          tabBarIcon: ({ color })=>(
-            <ProfileSvg fill={color} width={iconSize} height={iconSize}/>
+          tabBarIcon: ({ color }) => (
+            <ProfileSvg fill={color} width={iconSize} height={iconSize} />
           )
-        }}       
+        }}
       />
 
       <Screen 
-        name="exercise"
+        name='exercise'
         component={Exercise}
-        options={{
-          tabBarButton: () => null
-        }}
-      />      
-
-
+        options={{ tabBarButton: () => null }}
+      />
     </Navigator>
-  )
+  );
 }

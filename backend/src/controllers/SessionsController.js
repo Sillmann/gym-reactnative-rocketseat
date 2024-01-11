@@ -23,12 +23,14 @@ class SessionsController {
     const generateTokenProvider = new GenerateToken();
     const token = await generateTokenProvider.execute(user.id);
 
+    await knex("users_tokens").where({ user_id: user.id }).delete();
+
     const generateRefreshToken = new GenerateRefreshToken();
-    const refresh_token = await generateRefreshToken.execute(user.id);
+    generateRefreshToken.execute(user.id, token);
 
     delete user.password;
 
-    response.status(201).json({ user, token, refresh_token });
+    response.status(201).json({ token, user });
   }
 }
 

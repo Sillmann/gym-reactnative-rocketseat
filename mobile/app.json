@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rn_gym",
-    "slug": "rn_gym",
+    "name": "ignite-rn-03-ignite-gym",
+    "slug": "ignite-rn-03-ignite-gym",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,6 +19,9 @@
         }
       ]
     ],
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -28,7 +31,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
