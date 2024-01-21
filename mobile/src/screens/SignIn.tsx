@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { useNavigation } from "@react-navigation/native";
-import { VStack, Image, Text, Center, Heading, ScrollView } from "native-base";
+import { VStack, Image, Text, Center, Heading, ScrollView, useToast } from "native-base";
 
 import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
 
@@ -8,13 +9,54 @@ import BackgroundImg from '@assets/background.png';
 
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
+import { useAuth } from '@hooks/useAuth'; 
+import { AppError } from '@utils/AppError';
 
 export function SignIn() {
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [email, setEmail ] = useState('ssilman@gmail.com');
+  const [password, setPassword ] = useState('123456');  
+
+  const { signIn } = useAuth();
+
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
+
+  const toast = useToast();
 
   function handleNewAccount() {
     navigation.navigate('signUp');
+  }
+
+  async function handleSignIn() {
+    console.log("email", email);
+    console.log("password", password);
+
+    // setUser({
+    //   id: '',
+    //   name: '',
+    //   email, 
+    //   avatar: '',
+    // });
+
+    try {
+      setIsLoading(true);
+      await signIn(email,password);
+    } catch(error) {
+      const isAppError = error instanceof AppError;
+
+      const title = isAppError ? error.message : 'Não foi possivel entrar. Tente novamente mais tarde.';
+      
+      setIsLoading(false);
+      
+      toast.show({
+        title,
+        placement: 'top',
+        bgColor: 'red.500'
+      })
+
+    }
   }
 
   return (
@@ -43,16 +85,25 @@ export function SignIn() {
 
           <Input 
             placeholder="E-mail" 
+            onChangeText={setEmail}
             keyboardType="email-address"
+            value="ssilman@gmail.com"
             autoCapitalize="none"
 
           />
           <Input 
             placeholder="Senha" 
+            onChangeText={setPassword}
+            value="123456"
             secureTextEntry
           />
 
-          <Button title="Acessar" />
+          <Button 
+            title="Acessar" 
+            onPress={handleSignIn}
+            isLoading={isLoading}
+          />
+
         </Center>
 
         <Center mt={24}>
