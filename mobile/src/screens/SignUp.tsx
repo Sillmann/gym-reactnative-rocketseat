@@ -1,6 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Alert } from "react-native";
-import { VStack, Image, Text, Center, Heading, ScrollView, useToast} from "native-base";
+import { VStack, Image, Text, Center, Heading, ScrollView } from "native-base";
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,10 +9,6 @@ import BackgroundImg from '@assets/background.png';
 
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
-
-import { api } from '@services/api';
-import axios from 'axios';
-import { AppError } from '@utils/AppError';
 
 type FormDataProps = {
   name: string;
@@ -30,8 +25,6 @@ const signUpSchema = yup.object({
 });
 
 export function SignUp() {
-
-  const toast = useToast();
   
   const { control, handleSubmit, formState: { errors } } = useForm<FormDataProps>({
     resolver: yupResolver(signUpSchema),
@@ -43,48 +36,8 @@ export function SignUp() {
     navigation.goBack();
   }
 
-  async function handleSignUp({ name, email, password, password_confirm }: FormDataProps) {
-    //console.log({ name, email, password, password_confirm })
-
-    try {
-      const response = await api.post('/users', { name, email, password });
-      console.log(response);
-    } catch (error) {
-
-        const isAppError = error instanceof AppError;
-        const title = isAppError ? error.message : 'Não foi possível criar a conta'
-        
-        // let title = 'Erro Generico';
-
-        // if (axios.isAxiosError(error)) {
-        //   title = error.response?.data.message;
-        // }
-
-        toast.show({
-          title,  
-          placement: 'top',
-          bgColor: 'red.500'
-        });
-
-      /*
-      if (axios.isAxiosError(error)) {
-        Alert.alert(error.response?.data.message);
-        console.log(error);
-      } 
-      */     
-    }
-    /*
-    await fetch('http://192.168.0.110:3333/users', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, email, password })
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    */
+  function handleSignUp({ name, email, password, password_confirm }: FormDataProps) {
+    console.log({ name, email, password, password_confirm })
   }
 
   return (
