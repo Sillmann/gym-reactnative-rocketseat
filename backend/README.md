@@ -1,4 +1,3 @@
-
 ### Scripts
 
 |                    Script | Target                                             |
@@ -11,3 +10,5 @@
 
 ### API Docs
 To view the API documentation, run the API and access [http://localhost:3333/api-docs](http://localhost:3333/api-docs) in your browser
+
+feito com <3 por @bandeirapk

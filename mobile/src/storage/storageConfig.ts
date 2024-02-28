@@ -1,4 +1,4 @@
-const USER_STORAGE = '@ignitegym:user';
-const AUTH_STORAGE = '@ignitegym:token';
+// Aqui ficam salvas as chaves para o AsyncStorage
 
-export { USER_STORAGE, AUTH_STORAGE };
+export const USER_STORAGE = '@gymignite:user';
+export const AUTH_TOKEN_STORAGE = '@gymignite:token';

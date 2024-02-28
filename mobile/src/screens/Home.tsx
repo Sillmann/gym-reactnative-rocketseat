@@ -1,65 +1,75 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { FlatList, Heading, HStack, Text, useToast, VStack } from 'native-base';
+import React, { useState, useEffect, useCallback } from 'react';
+
+import { HStack, VStack, FlatList, Text, Heading, useToast } from 'native-base';
+
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 import { api } from '@services/api';
-import { AppError } from '@utils/AppError';
+
 import { ExerciseDTO } from '@dtos/ExerciseDTO';
 
-import { Group } from '@components/Group';
-import { HomeHeader } from '@components/HomeHeader';
-import { ExerciseCard } from '@components/ExerciseCard';
+import { AppError } from '@utils/AppError';
 
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
+
+import { HomeHeader } from '@components/HomeHeader';
+import { Group } from '@components/Group';
 import { Loading } from '@components/Loading';
+import { ExerciseCard } from '@components/ExerciseCard';
 
 export function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [groups, setGroups] = useState<string[]>([]);
+  const [groupSelected, setGroupSelected] = useState<string>('antebraço');
   const [exercises, setExercises] = useState<ExerciseDTO[]>([]);
-  const [groupSelected, setGroupSelected] = useState('antebraço');
 
   const toast = useToast();
+
   const navigation = useNavigation<AppNavigatorRoutesProps>();
 
-  function handleOpenExerciseDetails(exerciseId: string) {
+  function handleOpenDetailsExercise(exerciseId: string) {
     navigation.navigate('exercise', { exerciseId });
   }
 
   async function fetchGroups() {
     try {
+      setIsLoading(true);
       const response = await api.get('/groups');
-      setGroups(response.data);
 
+      setGroups(response.data);
     } catch (error) {
       const isAppError = error instanceof AppError;
-      const title = isAppError ? error.message : 'Não foi possível carregar os grupos musculares';
+      const title = isAppError
+        ? error.message
+        : 'Não foi possível carregar os grupos de exercícios';
 
       toast.show({
         title,
         placement: 'top',
-        bgColor: 'red.500'
-      })
+        bgColor: 'red.500',
+      });
+    } finally {
+      setIsLoading(false);
     }
   }
 
-  async function fecthExercisesByGroup() {
+  async function fetchExercises() {
     try {
       setIsLoading(true);
       const response = await api.get(`/exercises/bygroup/${groupSelected}`);
 
       setExercises(response.data);
-
     } catch (error) {
       const isAppError = error instanceof AppError;
-      const title = isAppError ? error.message : 'Não foi possível carregar os exercícios';
+      const title = isAppError
+        ? error.message
+        : 'Não foi possível carregar os exercícios';
 
       toast.show({
         title,
         placement: 'top',
-        bgColor: 'red.500'
-      })
+        bgColor: 'red.500',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -67,25 +77,27 @@ export function Home() {
 
   useEffect(() => {
     fetchGroups();
-  },[])
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
-      fecthExercisesByGroup()
-    },[groupSelected])
-  )
+      fetchExercises();
+    }, [groupSelected])
+  );
 
   return (
     <VStack flex={1}>
       <HomeHeader />
 
-      <FlatList 
+      <FlatList
         data={groups}
         keyExtractor={item => item}
         renderItem={({ item }) => (
-          <Group 
+          <Group
             name={item}
-            isActive={groupSelected.toLocaleUpperCase() === item.toLocaleUpperCase()}
+            isActive={
+              groupSelected.toLocaleUpperCase() === item.toLocaleUpperCase()
+            }
             onPress={() => setGroupSelected(item)}
           />
         )}
@@ -96,38 +108,53 @@ export function Home() {
         }}
         my={10}
         maxH={10}
+        minH={10}
       />
 
-      {
-        isLoading ? <Loading /> :
-        <VStack px={8}>
-          <HStack justifyContent="space-between" mb={5}>
-            <Heading color="gray.200" fontSize="md" fontFamily="heading">
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <VStack
+          flex={1}
+          px={8}
+        >
+          <HStack
+            justifyContent="space-between"
+            alignItems="center"
+            mb={5}
+          >
+            <Heading
+              color="gray.200"
+              fontSize="md"
+              fontFamily="heading"
+            >
               Exercícios
             </Heading>
 
-            <Text color="gray.200" fontSize="sm">
+            <Text
+              color="gray.200"
+              fontSize="md"
+            >
               {exercises.length}
             </Text>
           </HStack>
 
-          <FlatList 
+          <FlatList
             data={exercises}
             keyExtractor={item => item.id}
             renderItem={({ item }) => (
-              <ExerciseCard 
-                onPress={() => handleOpenExerciseDetails(item.id)}
+              <ExerciseCard
                 data={item}
+                onPress={() => handleOpenDetailsExercise(item.id)}
               />
             )}
             showsVerticalScrollIndicator={false}
             _contentContainerStyle={{
-              paddingBottom: 20
+              pb: 10,
             }}
           />
-
         </VStack>
-      }
+      )}
     </VStack>
   );
 }
