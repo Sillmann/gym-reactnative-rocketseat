@@ -1,24 +1,26 @@
 Ignite GYM
 App elaborado no curso de React Native da Rocketseat.
 
-A ideia dessa aplicação é sobre um app onde podemos consultar exercícios de academia. 
+A aplicação consiste em fazer uma rotina de exercícios e acompanhar um histórico dos exercícios realizados. 
 
-Para estilizar essa aplicação é utilizado o NativeBase, uma biblioteca de componentes
-estilizados que facilitou muito na criação do app.
+Conceitos e recursos aplicados:
+- NativeBase - biblioteca de componentes para construir interfaces com produtividade.
+- Integração com um backend.
+- Consumir API.
+- Autenticação JWT.
+- Refresh Token.
+- Criação de Hook.
+- Utilização de contexto.
+- 
 
-Para o Backend:
-
-### Scripts
-
-|                    Script | Target                                             |
-| ------------------------- | -------------------------------------------------- |
-|                    `npm run dev` | Run API in **development** environment      |
-|                    `npm start` | Run API in **production** environment         |
-|                    `npm run migrate` | Create database tables                  |
-|                    `npm run seed` | Populate database tables                   |
-
+### Para executar o Backend:
+`npm run dev`
 
 ### API Docs
 Para visualiza a documentação da API (backend):
-- nrp run dev
 - [http://localhost:3333/api-docs](http://localhost:3333/api-docs) no browser
+
+![Screenshot_20240306-211433_1](https://github.com/Sillmann/gym-reactnative-rocketseat/assets/58642347/70f9c0bb-c910-4a29-b402-95ab6aa93d86)
+![Screenshot_20240306-211538_2](https://github.com/Sillmann/gym-reactnative-rocketseat/assets/58642347/40793c35-1c58-498c-ae1a-234524c56ae2)
+![Screenshot_20240306-211602_3](https://github.com/Sillmann/gym-reactnative-rocketseat/assets/58642347/02e50866-1e23-439f-a3d4-d3f5e4437a02)
+![Screenshot_20240306-211620_4](https://github.com/Sillmann/gym-reactnative-rocketseat/assets/58642347/7964cae0-8e01-4144-b485-ce96c58829c5)
