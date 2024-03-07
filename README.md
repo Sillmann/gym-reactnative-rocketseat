@@ -11,7 +11,6 @@ Conceitos e recursos aplicados:
 - Refresh Token.
 - Criação de Hook.
 - Utilização de contexto.
-- 
 
 ### Para executar o Backend:
 `npm run dev`
@@ -24,3 +23,6 @@ Para visualiza a documentação da API (backend):
 ![Screenshot_20240306-211538_2](https://github.com/Sillmann/gym-reactnative-rocketseat/assets/58642347/40793c35-1c58-498c-ae1a-234524c56ae2)
 ![Screenshot_20240306-211602_3](https://github.com/Sillmann/gym-reactnative-rocketseat/assets/58642347/02e50866-1e23-439f-a3d4-d3f5e4437a02)
 ![Screenshot_20240306-211620_4](https://github.com/Sillmann/gym-reactnative-rocketseat/assets/58642347/7964cae0-8e01-4144-b485-ce96c58829c5)
+
+https://expo.dev/artifacts/eas/ppPLxF5cSWLABCh3ZTXW56.apk
+
