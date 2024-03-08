@@ -1,7 +1,7 @@
 Ignite GYM
 App elaborado no curso de React Native da Rocketseat.
 
-A aplicação consiste em fazer uma rotina de exercícios e acompanhar um histórico dos exercícios realizados. 
+A aplicação consiste em fazer uma rotina de exercícios e acompanhar um histórico dos realizados. 
 
 Conceitos e recursos aplicados:
 - NativeBase - biblioteca de componentes para construir interfaces com produtividade.
@@ -16,7 +16,7 @@ Conceitos e recursos aplicados:
 `npm run dev`
 
 ### API Docs
-Para visualiza a documentação da API (backend):
+Para visualizar a documentação da API (backend):
 - [http://localhost:3333/api-docs](http://localhost:3333/api-docs) no browser
 
 ![Screenshot_20240306-211433_1](https://github.com/Sillmann/gym-reactnative-rocketseat/assets/58642347/70f9c0bb-c910-4a29-b402-95ab6aa93d86)
